@@ -9,8 +9,8 @@ let highScore = 0;
 
 let h2 = document.querySelector("h2");
 
-document.addEventListener("keypress", function() {
-    if(started == false){
+document.addEventListener("keypress", function () {
+    if (started == false) {
         console.log("game started");
         started = true;
 
@@ -18,26 +18,26 @@ document.addEventListener("keypress", function() {
     }
 });
 
-function gameFlash(btn){  
-    btn.classList.add("flash"); 
-    setTimeout(function(){
+function gameFlash(btn) {
+    btn.classList.add("flash");
+    setTimeout(function () {
         btn.classList.remove("flash");
     }, 250);
 }
 
-function userFlash(btn){  
+function userFlash(btn) {
     btn.classList.add("userflash");
-    setTimeout(function(){  
+    setTimeout(function () {
         btn.classList.remove("userflash");
     }, 250);
 }
 
-function levelUp(){
-    userSeq = []; 
+function levelUp() {
+    userSeq = [];
     level++;
-    h2.innerText= `level ${level}`;
+    h2.innerText = `level ${level}`;
 
-    let randIdx = Math.floor(Math.random()*4);  
+    let randIdx = Math.floor(Math.random() * 4);
     let randColor = btns[randIdx];
     let randBtn = document.querySelector(`.${randColor}`);
     gameSeq.push(randColor);
@@ -45,23 +45,23 @@ function levelUp(){
     gameFlash(randBtn);
 }
 
-function checkAns(idx){
-    if(userSeq[idx] === gameSeq[idx]){
-        if(userSeq.length == gameSeq.length){
-            setTimeout(levelUp ,1000);
+function checkAns(idx) {
+    if (userSeq[idx] === gameSeq[idx]) {
+        if (userSeq.length == gameSeq.length) {
+            setTimeout(levelUp, 1000);
         }
     }
-    else{
-        if (level-1 > highScore) { 
-            highScore = level-1; 
+    else {
+        if (level - 1 > highScore) {
+            highScore = level - 1;
         }
 
-        h2.innerHTML =`Game Over! Your Score was <b>${level-1}</b> | High Score: <b>${highScore}</b> <hr> Press any key to start.`;
+        h2.innerHTML = `Game Over! Your Score was <b>${level - 1}</b> | High Score: <b>${highScore}</b> <hr> Press any key to start.`;
         console.log("Game Over!");
 
-        document.querySelector("body").style.backgroundColor = "red";  
-        setTimeout(function(){
-            document.querySelector("body").style.backgroundColor ="white";
+        document.querySelector("body").style.backgroundColor = "red";
+        setTimeout(function () {
+            document.querySelector("body").style.backgroundColor = "white";
         }, 150);
 
         reset();
@@ -69,12 +69,12 @@ function checkAns(idx){
 }
 
 function btnPress() {
-    
+
     let btn = this;
-    userFlash(btn); 
+    userFlash(btn);
     userColor = btn.getAttribute("id");
     userSeq.push(userColor);
-    checkAns(userSeq.length-1);  
+    checkAns(userSeq.length - 1);
 }
 
 let allBtns = document.querySelectorAll(".btn");
@@ -82,9 +82,9 @@ for (btn of allBtns) {
     btn.addEventListener("click", btnPress);
 }
 
-function reset(){
+function reset() {
     started = false;
     gameSeq = [];
-    userSeq =[];
+    userSeq = [];
     level = 0;
-}
+} 
